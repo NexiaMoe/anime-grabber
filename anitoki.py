@@ -8,7 +8,7 @@ page = 1
 
 def first():
     global no
-    source = requests.get("https://anitoki.web.id/").text
+    source = requests.get("https://anitoki.com/").text
 
     soup = BeautifulSoup(source, 'html.parser')
     for title in soup.find_all('div', class_='content'):
@@ -36,7 +36,7 @@ def next_page():
     link = []
     page += 1
     no = 1
-    c = requests.get("https://anitoki.web.id/page/" + str(page)).text
+    c = requests.get("https://anitoki.com/page/" + str(page)).text
 
     d = BeautifulSoup(c, 'html.parser')
 
@@ -59,7 +59,7 @@ def prev_page():
         first()
     else:
         link = []
-        a = requests.get("https://anitoki.web.id/page/"+str(page)).text
+        a = requests.get("https://anitoki.com/page/"+str(page)).text
         b = BeautifulSoup(a, 'html.parser')
 
         for title in b.find_all('div', class_='content'):
