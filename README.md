@@ -48,3 +48,6 @@ Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+#### Thanks to
+- [**Neuron**](https://github.com/Andrew-Shay/Neuron) for providing template
