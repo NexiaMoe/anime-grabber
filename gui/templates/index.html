@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Anime Scrapper Indonesia</title>
+      <!-- Bootstrap core CSS -->
+      <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+      <link href="../static/css/bootstrap.css" rel="stylesheet">
+      <!-- Custom styles for this template -->
+      <link href="{{ url_for('static', filename='css/starter-template.css') }}" rel="stylesheet">
+      <link href="../static/css/starter-template.css" rel="stylesheet">
+      <style>
+         .anyClass {
+            height:100vh;
+            overflow-y: scroll;
+            position: fixed;
+            z-index: 5;
+            padding-bottom: 40vh;
+            margin-top: 5vh;
+         }
+         
+         .desc{
+            padding-bottom: 30% !important;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            display: none; 
+            padding-top: 2rem;
+         }
+
+         .download{
+            padding-left: 2rem;
+            padding-right: 2rem;
+            display: none;
+            padding-top: 2rem;
+         }
+
+         .down-button{
+            margin-right: 20px;
+         }
+
+         .container-download{
+            padding-left: 2vh;
+            padding-right: 2vh;
+
+         }
+
+         .card2{
+            margin-bottom: 20px;
+         }
+
+         /* html {
+         position: relative;
+         min-height: 100%;
+         } */
+         /* body {
+         margin-bottom: 60px;
+         }  */
+         .footer {
+            margin-bottom: 0px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px; /* Vertically center the text there */
+            background-color: #f5f5f5;
+            z-index: 10;
+
+            }
+         ::-webkit-scrollbar {
+            display: none;
+         }
+      </style>
+   </head>
+   <body onload="get_image(1)">
+
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+         <a class="navbar-brand" href="#">Anime Scrapper</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+
+         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item active">
+               <a class="nav-link" href="#">Anitoki <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item">
+               <a class="nav-link disabled" href="#">Samehadaku</a>
+               </li>
+               <li class="nav-item">
+               <a class="nav-link disabled" href="#">Nekopoi</a>
+               </li>
+               <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
+               <div class="dropdown-menu" aria-labelledby="dropdown01">
+                  <a class="dropdown-item disabled" href="#">Coming Soon</a>
+               </div>
+               </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+               <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+         </div>
+      </nav>
+
+
+      <!-- <main role="main" class="fixed-top"> -->
+      <div class="content">
+         <div style="padding-top: 1rem; padding-right: 1.5rem; padding-left: 1.5rem; text-align: center;">
+            <h1 id="title">Anitoki Grabber</h1>
+         </div>
+         <div class="row justify-content-center">
+            <img src={{ url_for('static', filename='img/loading.gif') }} id="progressBar">
+         </div>
+         <div class="row anyClass justify-content-center" id="imgcnt" style="margin-bottom: -100px;"></div>
+         <div class="anyClass justify-content-center desc" id="descriptionBox">
+            <div id="imgdesc" class="justify-content-center text-center pb-5">
+            </div>
+            <div id="description" style="margin-bottom: -40px; padding-bottom: 10%;"></div>
+            <div class="justify-content-left container-download" id="download">
+               <div id="h264_360">
+                  <h5>Download H264 360p</h5>
+               </div>
+               <div id="h264_480">
+                  <h5>Download H264 480p</h5>
+               </div>
+               <div id="h264_720">
+                  <h5>Download H264 720p</h5>
+               </div>
+               <div id="h264_1080">
+                  <h5>Download H264 1080p</h5>
+               </div>
+               <div id="h265_480">
+                  <h5>Download H265 480p</h5>
+               </div>
+               <div id="h265_720">
+                  <h5>Download H265 720p</h5>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- </main> -->
+      <footer class="footer">
+         <div class="container text-center">
+            <span class="text-muted">Created with ♥ by Nexiamuel.</span>
+         </div>
+      </footer>
+
+
+
+
+
+
+
+
+
+      <!-- /.container -->
+      <!-- Bootstrap core JavaScript
+         ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/jquery-slim.min.js') }}"><\/script>')</script>
+      <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+
+      <!-- Main Script -->
+      <script>
+         $("#descriptionBox").hide();
+         $("#h264_360").hide();
+         $("#h264_480").hide();
+         $("#h264_720").hide();
+         $("#h264_1080").hide();
+         $("#h265_480").hide();
+         $("#h265_720").hide();
+
+         var jsonData = '{{ json_data|safe }}';
+         jsonData = JSON.parse(jsonData);
+         
+         function copyString(url) {
+            console.log(url);
+            var dummy = document.createElement("textarea");
+            // dummy.style.display = 'none'
+            document.body.appendChild(dummy);
+            dummy.value = url;
+            /* Get the text field */
+
+            /* Select the text field */
+            dummy.select();
+            dummy.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            /* Alert the copied text */
+            alert("Copied");
+         }
+
+         function loadData(newData) {
+            document.getElementById("imgcnt").innerHTML = "";
+            var i;
+            for (i = 0; i < newData.length; i++) {
+               
+               newOption = document.createElement('div');
+               newOption.innerHTML = "<p>"+newData[i]+"</p><br>";
+               document.getElementById("imgcnt").appendChild(newOption);
+            }
+           }
+         function downloads(url){
+            $("#progressBar").show();
+            $("#imgcnt").hide();
+            
+            $("#descriptionBox").show();
+            
+            var ajaxRequest;
+            try {
+                  ajaxRequest = new XMLHttpRequest();
+            } catch (e) {
+                  alert("Server could not be reached. Restart Neuron");
+                  return false;
+            }
+           // Create a function that will receive data sent from the server
+         
+            ajaxRequest.onreadystatechange = function() {
+               $("#progressBar").show();
+               
+               if (ajaxRequest.readyState == 4) {
+                   
+                  // Get the data from the server's response
+                  var data = ajaxRequest.responseText;
+                  console.log(JSON.parse(data))
+                  data = JSON.parse(data);
+      
+                  $("#title").text(data.title)
+                  var imgOption = document.createElement('div');
+                  imgOption.innerHTML = `<img src="`+data.img+`">`
+                  // newOption.innerHTML = "<p>"+response[i]+"</p><br>";
+                  document.getElementById("imgdesc").appendChild(imgOption);
+      
+                  var a;
+                   
+                  for (a = 0; a < data.description.length; a++) {
+                     // console.log(response[i])
+                     var descriptionOption = document.createElement('p');
+                     descriptionOption.classList.add('text-left')
+                     descriptionOption.innerHTML = data.description[a]
+                     // newOption.innerHTML = "<p>"+response[i]+"</p><br>";
+                     document.getElementById("description").appendChild(descriptionOption);
+                     
+         
+                  }
+                  console.log(data)
+                  var b;
+                  // h264 360p
+                  for (b = 0; b < data.h264_360.length; b++) {
+                     if(String(data.h264_360[b]).indexOf("google") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_360[b]+"')")
+                        gdrive.innerHTML = `Google Drive`
+                        document.getElementById("h264_360").appendChild(gdrive);
+                     }
+                     if(String(data.h264_360[b]).indexOf("zippyshare") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_360[b]+"')")
+                        gdrive.innerHTML = `ZippyShare`
+                        document.getElementById("h264_360").appendChild(gdrive);
+                     }
+                     if(String(data.h264_360[b]).indexOf("clicknupload") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_360[b]+"')")
+                        gdrive.innerHTML = `ClicknUpload`
+                        document.getElementById("h264_360").appendChild(gdrive);
+                     }
+                     if(String(data.h264_360[b]).indexOf("racaty") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_360[b]+"')")
+                        gdrive.innerHTML = `Racaty`
+                        document.getElementById("h264_360").appendChild(gdrive);
+                     }
+                     if(String(data.h264_360[b]).indexOf("mir.cr") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_360[b]+"')")
+                        gdrive.innerHTML = `Mirror`
+                        document.getElementById("h264_360").appendChild(gdrive);
+                     }
+                  }
+
+                  // h264 480p 
+                  for (b = 0; b < data.h264_480.length; b++) {
+                     if(String(data.h264_480[b]).indexOf("google") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_480[b]+"')")
+                        gdrive.innerHTML = `Google Drive`
+                        document.getElementById("h264_480").appendChild(gdrive);
+                     }
+                     if(String(data.h264_480[b]).indexOf("zippyshare") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_480[b]+"')")
+                        gdrive.innerHTML = `ZippyShare`
+                        document.getElementById("h264_480").appendChild(gdrive);
+                     }
+                     if(String(data.h264_480[b]).indexOf("clicknupload") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_480[b]+"')")
+                        gdrive.innerHTML = `ClicknUpload`
+                        document.getElementById("h264_480").appendChild(gdrive);
+                     }
+                     if(String(data.h264_480[b]).indexOf("racaty") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_480[b]+"')")
+                        gdrive.innerHTML = `Racaty`
+                        document.getElementById("h264_480").appendChild(gdrive);
+                     }
+                     if(String(data.h264_480[b]).indexOf("mir.cr") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_480[b]+"')")
+                        gdrive.innerHTML = `Mirror`
+                        document.getElementById("h264_480").appendChild(gdrive);
+                     }
+                  }
+
+                  // h264 720p 
+                  for (b = 0; b < data.h264_720.length; b++) {
+                     if(String(data.h264_720[b]).indexOf("google") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_720[b]+"')")
+                        gdrive.innerHTML = `Google Drive`
+                        document.getElementById("h264_720").appendChild(gdrive);
+                     }
+                     if(String(data.h264_720[b]).indexOf("zippyshare") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_720[b]+"')")
+                        gdrive.innerHTML = `ZippyShare`
+                        document.getElementById("h264_720").appendChild(gdrive);
+                     }
+                     if(String(data.h264_720[b]).indexOf("clicknupload") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_720[b]+"')")
+                        gdrive.innerHTML = `ClicknUpload`
+                        document.getElementById("h264_720").appendChild(gdrive);
+                     }
+                     if(String(data.h264_720[b]).indexOf("racaty") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_720[b]+"')")
+                        gdrive.innerHTML = `Racaty`
+                        document.getElementById("h264_720").appendChild(gdrive);
+                     }
+                     if(String(data.h264_720[b]).indexOf("mir.cr") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_720[b]+"')")
+                        gdrive.innerHTML = `Mirror`
+                        document.getElementById("h264_720").appendChild(gdrive);
+                     }
+                  }
+
+                  // h264 1080p 
+                  for (b = 0; b < data.h264_1080.length; b++) {
+                     if(String(data.h264_1080[b]).indexOf("google") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_1080[b]+"')")
+                        gdrive.innerHTML = `Google Drive`
+                        document.getElementById("h264_1080").appendChild(gdrive);
+                     }
+                     if(String(data.h264_1080[b]).indexOf("zippyshare") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_1080[b]+"')")
+                        gdrive.innerHTML = `ZippyShare`
+                        document.getElementById("h264_1080").appendChild(gdrive);
+                     }
+                     if(String(data.h264_1080[b]).indexOf("clicknupload") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_1080[b]+"')")
+                        gdrive.innerHTML = `ClicknUpload`
+                        document.getElementById("h264_1080").appendChild(gdrive);
+                     }
+                     if(String(data.h264_1080[b]).indexOf("racaty") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_1080[b]+"')")
+                        gdrive.innerHTML = `Racaty`
+                        document.getElementById("h264_1080").appendChild(gdrive);
+                     }
+                     if(String(data.h264_1080[b]).indexOf("mir.cr") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h264_1080[b]+"')")
+                        gdrive.innerHTML = `Mirror`
+                        document.getElementById("h264_1080").appendChild(gdrive);
+                     }
+                  }
+
+                  // h265 480p 
+                  for (b = 0; b < data.h265_480.length; b++) {
+                     if(String(data.h265_480[b]).indexOf("google") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h265_480[b]+"')")
+                        gdrive.innerHTML = `Google Drive`
+                        document.getElementById("h265_480").appendChild(gdrive);
+                     }
+                     if(String(data.h265_480[b]).indexOf("zippyshare") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h265_480[b]+"')")
+                        gdrive.innerHTML = `ZippyShare`
+                        document.getElementById("h265_480").appendChild(gdrive);
+                     }
+                     if(String(data.h265_480[b]).indexOf("mir.cr") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h265_480[b]+"')")
+                        gdrive.innerHTML = `Mirror`
+                        document.getElementById("h265_480").appendChild(gdrive);
+                     }
+                  }
+
+                  // h265 720p 
+                  for (b = 0; b < data.h265_720.length; b++) {
+                     if(String(data.h265_720[b]).indexOf("google") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h265_720[b]+"')")
+                        gdrive.innerHTML = `Google Drive`
+                        document.getElementById("h265_720").appendChild(gdrive);
+                     }
+                     if(String(data.h265_720[b]).indexOf("zippyshare") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h265_720[b]+"')")
+                        gdrive.innerHTML = `ZippyShare`
+                        document.getElementById("h265_720").appendChild(gdrive);
+                     }
+                     if(String(data.h265_720[b]).indexOf("mir.cr") > -1){
+                        
+                        var gdrive = document.createElement('a');
+                        gdrive.classList.add("btn")
+                        gdrive.classList.add("btn-primary")
+                        gdrive.classList.add("down-button")
+                        gdrive.setAttribute('href', "#")
+                        gdrive.setAttribute("onclick", "copyString('"+data.h265_720[b]+"')")
+                        gdrive.innerHTML = `Mirror`
+                        document.getElementById("h265_720").appendChild(gdrive);
+                     }
+                  }
+
+
+                  $("#h264_360").show();
+                  $("#h264_480").show();
+                  $("#h264_720").show();
+                  $("#h264_1080").show();
+                  $("#h265_480").show();
+                  $("#h265_720").show();     
+         
+                  }
+                  $("#progressBar").hide();
+                  // document.getElementById("progressbar").removeChild(progressbar);
+                  //$('#successAlert').show();
+               }
+               ajaxRequest.open("POST", "/get_download/", true);
+               ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+               ajaxRequest.send("url=" + url);
+         }
+         function get_image(page){
+            $("#descriptionBox").hide();
+            $("#progressBar").hide();
+            var ajaxRequest;
+            try {
+               ajaxRequest = new XMLHttpRequest();
+            } catch (e) {
+               alert("Server could not be reached. Restart Neuron");
+               return false;
+            }
+           // Create a function that will receive data sent from the server
+         
+            ajaxRequest.onreadystatechange = function() {
+               $("#progressBar").show();
+               if (ajaxRequest.readyState == 4) {
+                   
+                  // Get the data from the server's response
+                  var data = ajaxRequest.responseText;
+                  console.log(JSON.parse(data))
+                  data = JSON.parse(data);
+                  
+                  var i;
+      
+                  for (i = 0; i < data.judul.length; i++) {
+                     // console.log(response[i])
+                     newOption = document.createElement('div');
+                     newOption.innerHTML = `
+                     <div class="col-sm-auto">
+                       <div class="card card2" style="width: 18rem;">
+                         <img class="card-img-top" src="`+data.thumb[i]+`" alt="Card image cap">
+                         <div class="card-body">
+                           <h5 class="card-title">`+data.judul[i]+`</h5>
+                           <a href="#" id=`+i+` class="btn btn-primary" onclick="downloads('`+data.link[i]+`')">Download</a>
+                         </div>
+                       </div>
+                     </div>`
+                     // newOption.innerHTML = "<p>"+response[i]+"</p><br>";
+                     document.getElementById("imgcnt").appendChild(newOption);
+                     
+         
+                  }
+                  $("#progressBar").hide();
+                  // document.getElementById("progressbar").removeChild(progressbar);
+                  //$('#successAlert').show();
+               }
+               
+           }
+           ajaxRequest.open("POST", "/get_data/", true);
+           ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+           ajaxRequest.send("page=" + page);
+           
+         }
+         
+         
+         
+      </script>
+   </body>
+</html>
