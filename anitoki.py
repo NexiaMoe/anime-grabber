@@ -15,6 +15,10 @@ def first():
         print("(",no,")", title.h2.text, title.find_all('p')[1].getText())
         no += 1
         link.append(title.h2.a['href'])
+    
+    for thumb in soup.find_all('div', class_="thumbz"):
+        print(thumb.img['src'])
+
     menu()
 
 
