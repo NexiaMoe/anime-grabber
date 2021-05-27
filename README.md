@@ -1,11 +1,9 @@
 # Anime-grabber
 Get anime list from anime fanshare, fansub website without browsing.
 
-:::image type="content" source="screenshot/Home.png" alt-text="Home":::
-
-:::image type="content" source="screenshot/Description.png" alt-text="Description":::
-
-:::image type="content" source="screenshot/Download.png" alt-text="Download":::
+![Home](screenshot/Home.png)
+![Description](screenshot/Description.png)
+![Download](screenshot/Download.png)
 
 # What the plus side ?
 + Get download Get anime list
