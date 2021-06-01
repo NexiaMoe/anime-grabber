@@ -30,12 +30,13 @@ python -m gui
 # Task list
 - [x] Push to my github for first time
 - [x] Add anime description
-- [ ] Add link cache to csv or excel
 - [x] Use GUI instead Terminal with image
+- [ ] Pagination
+- [x] Dynamic page
 
 # Anime list
 - [x] Anitoki
-- [ ] Samehadaku
+- [x] Samehadaku
 - [ ] Nekopoi
 - [ ] More will be added or open issues
 
