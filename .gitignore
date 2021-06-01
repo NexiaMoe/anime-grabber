@@ -135,3 +135,5 @@ blob_storage
 webrtc_event_logs
 .vscode
 .idea
+ignorethis.py
+.vs
