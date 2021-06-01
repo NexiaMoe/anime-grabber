@@ -109,6 +109,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+venv
 
 # Spyder project settings
 .spyderproject
@@ -127,3 +128,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Custom
+anime
+blob_storage
+webrtc_event_logs
+.vscode
+.idea
+ignorethis.py
+.vs
